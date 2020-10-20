@@ -1,0 +1,13 @@
+repo_relative_paths:
+  - /authentication-helper
+  - /authenticationservice
+  - /clockpromptservice
+  - /clockservice
+  - /datachangeservice
+  - /employeeservice
+  - /go-mobile-api
+  - /notificationservice
+  - /partnerservice
+  - /punchservice
+  - /siteservice
+root: ~/dev

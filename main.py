@@ -1,21 +1,33 @@
-from gitupdated import *
+from m_gitupdated import *
+import yaml
 
 def main():
     rootLocation = ""
     argLength = len(sys.argv)
-    if(len(sys.argv) > 1):
+    if (os.path.exists("folders.yml")):
+        with open(r'folders.yml') as file:
+            folderFile = yaml.full_load(file)
+    key = "root"
+    if folderFile.get(key) is not None:
+        rootLocation = folderFile.get(key)
+    elif (len(sys.argv) > 1):
         # Check argument length. If path specified as argument, use that
         rootLocation = sys.argv[1]
     else:
         # Else, prompt user for root folder location
         rootLocation = promptForLocation()
 
-    shouldFF = promptForFF()
+    rootLocation = os.path.expanduser(rootLocation)
+
     print(bcolors.HEADER, "Root file location is: ", bcolors.ENDC, rootLocation)
+    shouldFF = promptForFF()
     printSpace()
 
     try:
-        folderList = os.listdir(rootLocation)
+        if folderFile.get("repo_relative_paths") is not None:
+            folderList = folderFile.get("repo_relative_paths")
+        else:
+            folderList = os.listdir(rootLocation)
         for folder in folderList:
             currentLocation = rootLocation + folder
             try:
